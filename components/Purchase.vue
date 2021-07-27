@@ -1,6 +1,6 @@
 <template>
 	<div id="purchase" 
-		class="fixed w-9/12 top-0 left-0 py-1 pb-3 z-50 h-screen sm:w-2/4 lg:w-1/4 flex flex-col" 
+		class="fixed w-full top-0 left-0 py-1 pb-3 z-50 h-screen sm:w-2/4 lg:w-1/4 flex flex-col" 
 		:class="{close:!toggle}">
 		<div class="header bg-graydark w-full py-2 rounded-lg shadow-xl flex justify-center relative">
 			<img src="~/assets/img/most-haunted.svg">
@@ -26,26 +26,30 @@
 		</div>
 	</div>
 
-	<div class="content close overflow-y-scroll w-11/12 m-auto bg-bluedark px-4 pb-2 flex-1 flex flex-col justify-between rounded-lg sm:overflow-y-hidden w-11/12" 
-		 ref="content">
-		<div class="text-2xl font-bold title pt-2">
-			Livestream
-		</div>
+	<div class="content close overflow-y-scroll w-11/12 m-auto bg-bluedark px-3 py-2 flex-1 flex flex-col justify-between rounded-lg sm:overflow-y-hidden w-11/12" 
+		 :class="{purchased:step == 3}">
 
-		<div class="description text-xs leading-3">
-			& 48 hours access to VOD
-		</div>
-
-		<div class="date-and-time mt-5">
-			<div class="date text-xs font-bold">
-				15th December
+		<div class="livestream-details hidden py-2 text-white p-3 rounded-t-lg
+					sm:block">
+			<div class="text-2xl font-bold title">
+				Livestream
 			</div>
-			<div class="date text-xs font-medium leading-6">
-				20:00 - 21:00 GMT
+
+			<div class="description text-xs leading-3 pb-2 border-b-2 border-gray60 mb-2 sm:border-white">
+				& 48 hours access to VOD
+			</div>
+
+			<div class="date-and-time leading-3">
+				<div class="date text-xs font-bold">
+					15th December
+				</div>
+				<div class="date text-xs font-medium leading-3">
+					20:00 - 21:00 GMT
+				</div>
 			</div>
 		</div>
 
-		<div class="purchase-box rounded-lg bg-white p-3 mb-2 text-black mb-1 flex-1 flex flex-col justify-around">
+		<div class="purchase-box hidden sm:block rounded-lg bg-white p-3 mb-2 text-black mb-1 flex-1 flex flex-col justify-around">
 			<div class="event-ticket">
 				<div class="title text-sm font-bold">
 					Event Ticket
@@ -55,8 +59,8 @@
 
 					<div class="option flex items-center justify-between mb-1">
 						<div class="option-title flex items-center text-xs">
-							<input type="radio" class="mr-2">
-							<span>Livestream</span>
+							<input type="radio" id="option-1" name="ticket-option" value="HTML">
+							<span class="ml-1">Livestream</span>
 						</div>
 						<div class="price text-xs font-bold">
 							$7.00
@@ -65,8 +69,8 @@
 
 					<div class="option flex items-center justify-between mb-1">
 						<div class="option-title flex items-center text-xs">
-							<input type="radio" class="mr-2">
-							<span>Livestream & Vinyl</span>
+							<input type="radio" id="option-2" name="ticket-option" value="CSS">
+							<span class="ml-1">Livestream & Vinyl</span>
 						</div>
 						<div class="price text-xs font-bold">
 							$9.00
@@ -75,8 +79,8 @@
 
 					<div class="option flex items-center justify-between mb-1">
 						<div class="option-title flex items-center text-xs">
-							<input type="radio" class="mr-2">
-							<span>Livestream & CD</span>
+							<input type="radio" id="option-3" name="ticket-option" value="CSS">
+							<span class="ml-1">Livestream & CD</span>
 						</div>
 						<div class="price text-xs font-bold">
 							$8.00
@@ -91,11 +95,9 @@
 					Send E-Ticket To
 				</div>
 
-				<div class="email text-xs px-3.5 text-gray">
-					j.hancock@mosthaunted.co.uk
-				</div>
+				<input-component class="mx-2" v-model="email" label="email"/>
 
-				<div class="note text-xs text-tiny mx-3.5 mb-2 text-gray60 border-t border-gray border-opacity-40">
+				<div class="note text-xs text-tiny mx-3.5 mb-2 text-gray60">
 					This is the email we will send your e-ticket too. 
 				</div>
 			</div>
@@ -109,53 +111,185 @@
 					</div>
 				</div>
 
-				<div class="detail mx-3.5 mt-1 border-b-2 border-gray border-opacity-10">
-					<div class="detail-title text-xs text-gray60">
-						Full Name
-					</div>
-					<div class="name text-xs text-gray py-1">
-						John Hancock
-					</div>
-				</div>
+				<input-component class="mx-2" v-model="name" label="Full Name"/>
+				<input-component class="mx-2" v-model="card" label="Card Number"/>
 
-				<div class="detail mx-3.5 mt-1 border-b-2 border-gray border-opacity-10">
-					<div class="detail-title text-xs text-gray60">
-						Card Number
-					</div>
-					<div class="name text-xs text-gray py-1">
-						0000 0000 0000 0000
-					</div>
-				</div>
-
-				<div class="expire-date mt-1 flex items-center">
-
-					<div class="detail mx-3.5 border-b-2 border-gray border-opacity-10">
-						<div class="detail-title text-xs text-gray60">
-							Expiry Date
-						</div>
-						<div class="name text-xs text-gray py-1">
-							01/21
-						</div>
-					</div>
-
-					<div class="detail mx-3.5 border-b-2 border-gray border-opacity-10">
-						<div class="detail-title text-xs text-gray60">
-							CVV
-						</div>
-						<div class="name text-xs text-gray py-1">
-							123
-						</div>
-					</div>
+				<div class="flex">
+					<input-component class="mx-2 flex-1" v-model="expireDate" label="Expiry Date"/>
+					<input-component class="mx-2 flex-1" v-model="cvv" label="CVV"/>
 				</div>
 			</div>
 		</div>
 
-		<div class="buy-btn w-full bg-red text-1xl rounded-lg text-center font-bold py-2 cursor-pointer">
-			Buy Now $7.00
-		</div>	
+		<div class="purchase-box-mobile sm:hidden rounded-lg bg-white p-3 mb-2 text-black mb-1 flex-1 flex flex-col justify-start">
 
-		<div class="accept-conditions text-tiny py-1 font-medium">
+			<div class="step-1" v-if="step == 1">
+
+				<div class="livestream-details text-black pb-4">
+
+					<div class="text-2xl font-bold title">
+						Livestream
+					</div>
+
+					<div class="description text-xs leading-3 pb-2 border-b-2 border-gray60 mb-2 sm:border-white">
+						& 48 hours access to VOD
+					</div>
+
+					<div class="date-and-time leading-3">
+						<div class="date text-xs font-bold">
+							15th December
+						</div>
+						<div class="date text-xs font-medium leading-3">
+							20:00 - 21:00 GMT
+						</div>
+					</div>
+				</div>
+
+				<div class="event-ticket">
+					<div class="title text-sm font-bold">
+						Event Ticket
+					</div>
+
+					<div class="options px-3.5 w-1/1">
+
+						<div class="option flex items-center justify-between mb-1">
+							<div class="option-title flex items-center text-xs">
+								<input type="radio" id="option-1" name="ticket-option" value="HTML">
+								<span class="ml-1">Livestream</span>
+							</div>
+							<div class="price text-xs font-bold">
+								$7.00
+							</div>
+						</div>
+
+						<div class="option flex items-center justify-between mb-1">
+							<div class="option-title flex items-center text-xs">
+								<input type="radio" id="option-2" name="ticket-option" value="CSS">
+								<span class="ml-1">Livestream & Vinyl</span>
+							</div>
+							<div class="price text-xs font-bold">
+								$9.00
+							</div>
+						</div>
+
+						<div class="option flex items-center justify-between mb-1">
+							<div class="option-title flex items-center text-xs">
+								<input type="radio" id="option-3" name="ticket-option" value="CSS">
+								<span class="ml-1">Livestream & CD</span>
+							</div>
+							<div class="price text-xs font-bold">
+								$8.00
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="next-step-btn flex justify-end" @click="step = 2">
+					<div class="btn text-sm bg-bluedark text-white inline font-bold py-2 px-4 my-3 flex rounded-lg">
+						<div>Card Details</div>
+						<div class="flex ml-1">
+							<img src="~/assets/img/toggle-right.svg">
+							<img src="~/assets/img/toggle-right.svg">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			
+			<div class="step-2" v-if="step == 2">
+
+				<div class="next-step-btn flex items-center justify-start mb-3" @click="step = 1">
+					<div class="btn text-sm bg-gray60 text-black inline font-bold py-2 px-4 flex rounded-lg">
+						<div class="flex mr-1">
+							<img src="~/assets/img/toggle-left-black.svg">
+							<img src="~/assets/img/toggle-left-black.svg">
+						</div>
+						<div>Back</div>
+					</div>
+
+					<div class="overview ml-2">
+						<div class="text-tiny text-black border-b font-bold">
+							Overview
+						</div>
+						<div class="text-tiny text-gray60">
+							1 x Livestream
+						</div>
+					</div>
+				</div>
+
+				<div class="send-ticket">
+
+					<div class="title text-sm font-bold">
+						Send E-Ticket To
+					</div>
+
+					<input-component class="mx-2" v-model="email" label="email"/>
+
+					<div class="note text-xs text-tiny mx-3.5 mb-2 text-gray60">
+						This is the email we will send your e-ticket too. 
+					</div>
+				</div>
+				<div class="card-details">
+					<div class="title text-sm mt-5 font-bold flex items-center justify-between">
+						<div>
+							Card Details
+						</div>
+						<div class="cards-logos">
+							<img src="~/assets/img/Card.svg">
+						</div>
+					</div>
+
+					<input-component class="mx-2" v-model="name" label="Full Name"/>
+					<input-component class="mx-2" v-model="card" label="Card Number"/>
+
+					<div class="flex">
+						<input-component class="mx-2 flex-1" v-model="expireDate" label="Expiry Date"/>
+						<input-component class="mx-2 flex-1" v-model="cvv" label="CVV"/>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="step-3" v-if="step == 3">
+				<div class="text-sm font-bold">
+					Ticket Information
+				</div>
+
+				<div class="text-xs px-2 py-3">
+					Thank you for buying a streaming ticket. We hope you enjoy the show.
+				</div>
+
+				<div class="text-xs px-2 py-3">
+					Thank you for buying a streaming ticket. We hope you enjoy the show. When the countdown ends the show will begin on this page. If it doesn’t start after 30 secs, please manually refresh the page. 
+				</div>
+
+				<div class="text-xs px-2 py-3">
+					<div class="font-bold">PLEASE NOTE</div> 
+					This is your own indivudual private link, sharing the link will prevent you from
+				</div>
+			</div>
+			
+		</div>
+
+		<div v-if="step == 1" disabled class="buy-btn w-full bg-gray60 text-1xl rounded-lg text-center font-bold py-2 cursor-pointer">
+			Buy Now $7.00
+		</div>
+
+		<div v-if="step == 2" @click="step = 3" class="buy-btn w-full bg-red text-1xl rounded-lg text-center font-bold py-2 cursor-pointer">
+			Buy Now $7.00
+		</div>
+
+		<div v-if="step == 3" class="buy-btn flex items-center justify-center w-full bg-green text-sm rounded-lg text-center font-bold py-2 cursor-pointer">
+			<div class="mr-1"><img src="~/assets/img/check.svg"></div>
+			<div>LICENSE CODE VERIFIED</div>
+		</div>
+
+		<div class="accept-conditions text-center text-tiny py-1 font-medium">
 			By click by now you are accepting our terms and conditions
+		</div>
+
+		<div class="bottom-logo flex justify-center py-1 sm:hidden">
+			<img src="~/assets/img/sidebar/logo.png">
 		</div>
 
 	</div>
@@ -164,10 +298,26 @@
 </template>
 
 <script>
+
+	import inputComponent from '~/components/Input.vue'
+
 	export default{
+
+		components:{
+			inputComponent
+		},
+
 		data(){
 			return{
-				toggle: false,
+				toggle: true,
+
+				email:'',
+				name:'',
+				card:'',
+				expireDate:'',
+				cvv:'',
+
+				step:1,
 			}
 		},
 	}
@@ -183,6 +333,11 @@
 
 		.content{
 			transition: 0.5s all;
+
+			&.purchased{
+				background-color: #1E1E1E;
+
+			}
 		}
 
 		.header{
@@ -200,8 +355,12 @@
 		}
 	}
 
-	@include respond("mobiles"){
 
+
+	.fade-enter-active, .fade-leave-active {
+	  transition: opacity .5s;
 	}
-
+	.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+	  opacity: 0;
+	}
 </style>
