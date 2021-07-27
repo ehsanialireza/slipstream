@@ -6,7 +6,7 @@
       <img class="object-contain" src="~/assets/img/most-haunted.svg">
 
       <div
-        class="bg-black bg-opacity-90 flex items-center justify-between absolute rounded-r-lg py-2 px-2 -right-14 top-5 cursor-pointer"
+        class="hidden sm:flex bg-black bg-opacity-90 items-center justify-between absolute rounded-r-lg py-2 px-2 -right-14 top-3 cursor-pointer"
         @click="toggle = !toggle">
         <div class="mr-1 flex" v-if="toggle">
           <img src="~/assets/img/toggle-left.svg">
