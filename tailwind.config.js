@@ -8,7 +8,13 @@ module.exports = {
        blue: '#000166',
         black: '#1F1F1F',
         gray: '#1F1F1F',
-        green: '#33C759'
+        green: '#33C759',
+        graydark: '#2D2D2D',
+        bluedark: '#000166',
+        gray60: '#bdbdbd'
+      },
+      fontSize: {
+       'tiny': '.600rem',
       },
       fontFamily: {
           inter: ['Inter', 'sans-serif']
