@@ -49,75 +49,96 @@
 
       <!-- Desktop  -->
       <div
-        class="purchase-box hidden sm:block rounded-lg bg-white p-3 text-black flex flex-col justify-around">
-        <div class="event-ticket">
-          <div class="title text-xl font-extrabold mb-2">
-            Event Ticket
+        class="purchase-box hidden sm:block rounded-lg bg-white p-3 text-black flex flex-col flex-1 justify-around">
+        <template v-if="step !== 3">
+          <div class="event-ticket">
+            <div class="title text-xl font-extrabold mb-2">
+              Event Ticket
+            </div>
+
+            <div class="options px-3.5 w-1/1">
+
+              <div class="option flex items-center justify-between mb-1">
+                <div class="option-title flex items-center text-xs">
+                  <input type="radio" id="option-1" name="ticket-option" value="HTML">
+                  <span class="ml-1">Livestream</span>
+                </div>
+                <div class="price text-xs font-bold">
+                  $7.00
+                </div>
+              </div>
+
+              <div class="option flex items-center justify-between mb-1">
+                <div class="option-title flex items-center text-xs">
+                  <input type="radio" id="option-2" name="ticket-option" value="CSS">
+                  <span class="ml-1">Livestream & Vinyl</span>
+                </div>
+                <div class="price text-xs font-bold">
+                  $9.00
+                </div>
+              </div>
+
+              <div class="option flex items-center justify-between mb-1">
+                <div class="option-title flex items-center text-xs">
+                  <input type="radio" id="option-3" name="ticket-option" value="CSS">
+                  <span class="ml-1">Livestream & CD</span>
+                </div>
+                <div class="price text-xs font-bold">
+                  $8.00
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="send-ticket mt-6">
+            <div class="title text-xl font-extrabold">
+              Send E-Ticket To
+            </div>
+
+            <input-component class="mx-2" v-model="email" label="email"/>
+
+            <div class="note text-xs text-tiny mx-3.5 mb-2 text-gray60">
+              This is the email we will send your e-ticket too.
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="title text-xl mt-5 font-extrabold flex items-center justify-between">
+              <div>
+                Card Details
+              </div>
+              <div class="cards-logos">
+                <img src="~/assets/img/Card.svg">
+              </div>
+            </div>
+
+            <input-component class="mx-2" v-model="name" label="Full Name"/>
+            <input-component class="mx-2" v-model="card" label="Card Number"/>
+
+            <div class="flex">
+              <input-component class="mx-2 flex-1" v-model="expireDate" label="Expiry Date"/>
+              <input-component class="mx-2 flex-1" v-model="cvv" label="CVV"/>
+            </div>
+          </div>
+        </template>
+        <div class="step-3 font-medium text-sm" v-else>
+          <div class="text-xl font-bold">
+            Ticket Information
           </div>
 
-          <div class="options px-3.5 w-1/1">
+          <div class=" px-2 py-3">
+            Thank you for buying a streaming ticket. We hope you enjoy the show.
+          </div>
 
-            <div class="option flex items-center justify-between mb-1">
-              <div class="option-title flex items-center text-xs">
-                <input type="radio" id="option-1" name="ticket-option" value="HTML">
-                <span class="ml-1">Livestream</span>
-              </div>
-              <div class="price text-xs font-bold">
-                $7.00
-              </div>
-            </div>
+          <div class=" px-2 py-3">
+            Thank you for buying a streaming ticket. We hope you enjoy the show. When the countdown ends the show will
+            begin on this page. If it doesn’t start after 30 secs, please manually refresh the page.
+          </div>
 
-            <div class="option flex items-center justify-between mb-1">
-              <div class="option-title flex items-center text-xs">
-                <input type="radio" id="option-2" name="ticket-option" value="CSS">
-                <span class="ml-1">Livestream & Vinyl</span>
-              </div>
-              <div class="price text-xs font-bold">
-                $9.00
-              </div>
-            </div>
-
-            <div class="option flex items-center justify-between mb-1">
-              <div class="option-title flex items-center text-xs">
-                <input type="radio" id="option-3" name="ticket-option" value="CSS">
-                <span class="ml-1">Livestream & CD</span>
-              </div>
-              <div class="price text-xs font-bold">
-                $8.00
-              </div>
-            </div>
+          <div class=" px-2 py-3">
+            <div class="font-bold">PLEASE NOTE</div>
+            This is your own indivudual private link, sharing the link will prevent you from
           </div>
         </div>
 
-        <div class="send-ticket mt-6">
-          <div class="title text-xl font-extrabold">
-            Send E-Ticket To
-          </div>
-
-          <input-component class="mx-2" v-model="email" label="email"/>
-
-          <div class="note text-xs text-tiny mx-3.5 mb-2 text-gray60">
-            This is the email we will send your e-ticket too.
-          </div>
-        </div>
-        <div class="card-details">
-          <div class="title text-xl mt-5 font-extrabold flex items-center justify-between">
-            <div>
-              Card Details
-            </div>
-            <div class="cards-logos">
-              <img src="~/assets/img/Card.svg">
-            </div>
-          </div>
-
-          <input-component class="mx-2" v-model="name" label="Full Name"/>
-          <input-component class="mx-2" v-model="card" label="Card Number"/>
-
-          <div class="flex">
-            <input-component class="mx-2 flex-1" v-model="expireDate" label="Expiry Date"/>
-            <input-component class="mx-2 flex-1" v-model="cvv" label="CVV"/>
-          </div>
-        </div>
       </div>
 
       <!--   Mobile   -->
@@ -286,12 +307,13 @@
       </div>
 
       <div v-if="step === 3"
-           class="flex items-center justify-center w-full bg-green text-lg rounded-lg text-center font-bold py-2 cursor-pointer">
+           class="flex items-center justify-center w-full bg-green text-lg rounded-lg text-center font-bold py-2 mb-4 cursor-pointer">
         <div class="mr-1"><img src="~/assets/img/check.svg"></div>
         <div>LICENSE CODE VERIFIED</div>
       </div>
 
-      <div class="accept-conditions text-center text-tiny py-1 font-medium">
+      <div class="accept-conditions text-center text-tiny py-1 font-medium mb-2"
+           v-if="step !== 3">
         By click by now you are accepting our terms and conditions
       </div>
 
