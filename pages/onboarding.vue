@@ -29,7 +29,7 @@
 <script>
 
     import purchase from '~/components/Purchase.vue'
-    import sidebar from '~/components/Sidebar.vue'
+    import sidebar from '~/components/chat.vue'
 
     export default {
 
