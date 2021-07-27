@@ -22,6 +22,25 @@ html, body, #__nuxt, #__layout, .default-layout {
   height: 100%;
 }
 
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E21616;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .db1 {
   background: rgba(255, 0, 0, .2);
   border: red;
@@ -41,5 +60,6 @@ html, body, #__nuxt, #__layout, .default-layout {
   background: rgba(255, 255, 0, .2);
   border: rgb(255, 255, 0);
 }
+
 
 </style>

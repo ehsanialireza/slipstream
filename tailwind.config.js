@@ -5,19 +5,17 @@ module.exports = {
     extend: {
       colors: {
         red: '#E21616',
-       blue: '#000166',
+        blue: '#1F4091',
         black: '#1F1F1F',
-        gray: '#1F1F1F',
+        gray: '#2D2D2D',
         green: '#33C759',
-        graydark: '#2D2D2D',
-        bluedark: '#000166',
         gray60: '#bdbdbd'
       },
       fontSize: {
-       'tiny': '.600rem',
+        'tiny': '.600rem',
       },
       fontFamily: {
-          inter: ['Inter', 'sans-serif']
+        inter: ['Inter', 'sans-serif']
       },
       container: {
         center: true,
