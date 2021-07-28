@@ -1,189 +1,183 @@
 <template>
-	<div id="sidebar" 
-		class="fixed w-9/12 top-0 right-0 py-1 pb-3 z-50 h-screen sm:w-2/4 lg:w-1/4 flex flex-col" 
-		:class="{close:!toggle}">
+  <div id="sidebar"
+       class="fixed top-0 right-0 py-1 pb-3 z-50 h-screen sm:w-2/4 lg:w-1/4 flex flex-col bg-gradient-to-b from-blue to-black"
+       :class="{close:!toggle}">
+    <div class="header w-11/12 sm:w-full mx-auto py-2 rounded-lg shadow-xl flex justify-center relative">
 
-		<div class="header bg-bluedark w-full py-2 rounded-lg shadow-xl flex justify-center relative">
+      <div
+        class="hidden sm:flex toggle-btn bg-black bg-opacity-90 items-center justify-between absolute rounded-l-lg py-2 px-2 -left-14 top-3 cursor-pointer"
+        @click="toggle = !toggle">
+        <div class="toggle-icon mr-1 flex" v-if="toggle">
+          <img src="~/assets/img/toggle-left.svg">
+          <img src="~/assets/img/toggle-left.svg">
+        </div>
 
-			<div 
-			class="toggle-btn bg-black bg-opacity-90 flex 
-			items-center justify-between absolute 
-			rounded-l-lg py-2 px-2 -left-14 top-5 cursor-pointer"
-			@click="toggle = !toggle"
-			>
-				<div class="toggle-icon mr-1 flex" v-if="toggle">
-					<img src="~/assets/img/toggle-left.svg">
-					<img src="~/assets/img/toggle-left.svg">
-				</div>
+        <img src="~/assets/img/sidebar/phone.svg">
 
-				<img src="~/assets/img/sidebar/phone.svg">
+        <div class="toggle-icon ml-1 flex" v-if="!toggle">
+          <img src="~/assets/img/toggle-right.svg">
+          <img src="~/assets/img/toggle-right.svg">
+        </div>
 
-				<div class="toggle-icon ml-1 flex" v-if="!toggle">
-					<img src="~/assets/img/toggle-right.svg">
-					<img src="~/assets/img/toggle-right.svg">
-				</div>
+      </div>
 
-			</div>
+      <div class="w-full flex flex-wrap items-center justify-between">
 
-			<div class="tabs w-full  flex items-center justify-between">
-				<div class="tab shadow-xl  bg-black flex-1 mx-2 py-2 px-1 rounded-lg flex items-center justify-center cursor-pointer">
-					<img src="~/assets/img/sidebar/info.svg">
-					<span class="text-xs font-bold ml-1">Info</span>
-				</div>
+        <div class="w-1/3 px-2 mb-2 ">
+          <div class="stroke-current hover:text-black hover:bg-white duration-300
+            shadow-xl py-2 flex items-center justify-center cursor-pointer rounded-lg"
+               @click="tab = 'info'" :class="[tab === 'info' ? 'text-black bg-white': 'text-white bg-black']"
+          >
+            <svg width="13" height="16" viewBox="0 0 13 16" fill="none">
+              <path
+                d="M8 0C8.21217 0 8.41566 0.0842855 8.56569 0.234315L12.5657 4.23431C12.7157 4.38434 12.8 4.58783 12.8 4.8V13.6C12.8 14.9255 11.7255 16 10.4 16H2.4C1.07452 16 0 14.9255 0 13.6V2.4C0 1.07452 1.07452 0 2.4 0H8ZM6.3992 1.6H2.4C1.95817 1.6 1.6 1.95817 1.6 2.4V13.6C1.6 14.0418 1.95817 14.4 2.4 14.4H10.4C10.8418 14.4 11.2 14.0418 11.2 13.6V6.4H7.2C6.78973 6.4 6.45159 6.09117 6.40538 5.6933L6.4 5.6L6.3992 1.6ZM10.8688 4.80005L7.99919 1.93125L7.99999 4.80005H10.8688Z"/>
+            </svg>
+            <span class="text-xs font-bold ml-1">Info</span>
+          </div>
+        </div>
 
-				<div class="tab shadow-xl  bg-black flex-1  py-2 px-1 rounded-lg flex items-center justify-center cursor-pointer">
-					<img src="~/assets/img/sidebar/Tee.svg">
-					<span class="text-xs font-bold ml-1">Merch Store</span>
-				</div>	
+        <div class="w-1/3 px-2  mb-2 ">
+          <div class="fill-current hover:text-black hover:bg-white duration-300
+            shadow-xl py-2 flex  items-center justify-center cursor-pointer rounded-lg"
+               @click="tab = 'merch'" :class="[tab === 'merch' ? 'text-black bg-white': 'text-white bg-black']"
+          >
+            <svg width="10" height="9" viewBox="0 0 10 9" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.28548 0.498108L7.16044 0.623398V0.498108H6.54446C6.26673 0.927281 5.68038 1.22394 4.99963 1.22394C4.31913 1.22394 3.73278 0.927281 3.45505 0.498108H2.83907V0.623398L2.71378 0.498108L0.498413 2.71472L1.71021 3.92751L2.83907 2.79816V8.44542H7.15994V2.79841L8.28905 3.92776L9.5006 2.71472L7.28548 0.498108Z"/>
+              <path
+                d="M7.15995 8.94365H2.83907C2.56408 8.94365 2.3409 8.72047 2.3409 8.44548V4.0013L2.06242 4.27978C1.96902 4.37344 1.84223 4.42574 1.70997 4.42574C1.57795 4.42574 1.45092 4.37319 1.35751 4.27978L0.145715 3.06698C-0.0485716 2.87245 -0.0485716 2.55736 0.145715 2.36257L2.36158 0.145964C2.46968 0.0376118 2.62585 -0.0149451 2.7763 0.00398537C2.79698 0.00149452 2.8179 0 2.83907 0H3.45506C3.62394 0 3.78161 0.0856852 3.87327 0.227415C4.0693 0.530302 4.51143 0.725834 4.99964 0.725834C5.48784 0.725834 5.93022 0.530302 6.12625 0.227415C6.21791 0.0856852 6.37533 0 6.54446 0H7.16045C7.18162 0 7.20254 0.00124543 7.22322 0.00398537C7.24364 0.00149452 7.26432 0 7.28524 0C7.28549 0 7.28549 0 7.28549 0C7.4175 0 7.54429 0.0525569 7.63794 0.145964L9.85331 2.36232C10.0476 2.55686 10.0476 2.87195 9.85331 3.06674L8.64176 4.27978C8.54835 4.37319 8.42157 4.42574 8.28955 4.42574C8.2893 4.42574 8.2893 4.42574 8.2893 4.42574C8.15729 4.42599 8.0305 4.37344 7.9371 4.28003L7.65837 4.00105V8.44548C7.65812 8.72072 7.43519 8.94365 7.15995 8.94365ZM3.33724 7.94731H6.66178V2.79847C6.66178 2.59696 6.78308 2.41538 6.96915 2.33816C7.15547 2.2607 7.36943 2.30354 7.51216 2.44626L8.2888 3.22291L8.79644 2.71478L7.20254 1.11989C7.12309 1.12711 7.04487 1.11466 6.9699 1.08377C6.91784 1.06235 6.87076 1.03246 6.82991 0.99634H6.78707C6.37583 1.44968 5.71675 1.72217 4.99964 1.72217C4.28252 1.72217 3.62369 1.44968 3.2122 0.99634H3.16936C3.12876 1.03246 3.08168 1.0621 3.02962 1.08377C2.95415 1.1149 2.87394 1.12586 2.79648 1.11989L1.20233 2.71503L1.70997 3.22316L2.48637 2.44626C2.62884 2.30354 2.84306 2.26095 3.02937 2.33816C3.21569 2.41538 3.33699 2.59696 3.33699 2.79847V7.94731H3.33724Z"/>
+            </svg>
+            <span class="text-xs font-bold ml-1">Merch Store</span>
+          </div>
+        </div>
 
-				<div class="tab shadow-xl bg-black mx-2 flex-1 py-2 px-1 rounded-lg flex items-center justify-center cursor-pointer">
-					<img src="~/assets/img/sidebar/setting.svg">
-					<span class="text-xs font-bold ml-1">Settings</span>
-				</div>	
-			</div>
-		</div>
+        <div class="w-1/3 px-2 mb-2 ">
+          <div class="fill-current hover:text-black hover:bg-white duration-300
+            shadow-xl py-2 flex  items-center justify-center cursor-pointer rounded-lg"
+               @click="tab = 'setting'" :class="[tab === 'setting' ? 'text-black bg-white': 'text-white bg-black']"
+          >
+            <svg width="13" height="14" viewBox="0 0 13 14" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M5.78342 0.00195879L7.16305 0.00189209C7.20476 0.00382837 7.24139 0.00859979 7.29284 0.0198018C7.67013 0.101964 7.81357 0.237451 8.1647 1.06724L8.22193 1.20412L8.44259 1.75094L8.46074 1.7584L8.74505 1.62969C9.36426 1.35276 9.68347 1.23612 9.89809 1.20357L9.94254 1.19786L10.0236 1.19349C10.2168 1.19349 10.4137 1.26194 10.5643 1.38113L10.6355 1.44487L11.5176 2.3233L11.5789 2.38811C11.8559 2.69333 11.8818 2.90972 11.5753 3.69836L11.4734 3.95278L11.233 4.52156L11.2376 4.53267L11.7882 4.73831L12.0536 4.84323C12.7394 5.12361 12.8802 5.27305 12.9719 5.61631C12.9904 5.68552 12.9969 5.73268 12.9991 5.79121L13 5.85477V7.09491C13 7.18307 12.997 7.23286 12.9753 7.31999C12.884 7.68643 12.7486 7.82597 11.9246 8.17409L11.7886 8.23085L11.2456 8.44999L11.2419 8.45914L11.4382 8.88811C11.9264 9.97338 11.9435 10.2113 11.6226 10.5687L11.5825 10.6122L10.6771 11.517C10.515 11.6809 10.2841 11.7711 10.0606 11.7711C9.87088 11.7711 9.57285 11.6809 9.06484 11.4772L8.79286 11.3657L8.48306 11.2347L8.46534 11.242L8.30527 11.6714C7.91335 12.7041 7.77908 12.8717 7.37645 12.9756C7.31696 12.991 7.27441 12.9975 7.22609 13.0002L7.14645 13.0019H5.90566C5.82822 13.0019 5.78451 12.9996 5.7076 12.9829C5.33046 12.9011 5.18644 12.7653 4.83462 11.935L4.77728 11.7981L4.55624 11.251L4.53923 11.244L4.1263 11.4296C3.4658 11.7204 3.17967 11.8089 2.97574 11.8089C2.78477 11.8089 2.5903 11.7418 2.4356 11.6215L2.36177 11.557L1.48098 10.6772L1.3804 10.5675C1.13885 10.2833 1.12698 10.0629 1.42346 9.30426L1.57796 8.92452L1.76655 8.48114L1.76262 8.47161L1.33564 8.31249C0.479105 7.98743 0.215137 7.8377 0.0896986 7.56436L0.055769 7.47835L0.0274268 7.38312C0.0113898 7.32225 0.00454576 7.27863 0.00176497 7.229L0 7.14714V5.90626C0 5.81741 0.00307966 5.76718 0.0252019 5.67931C0.10768 5.35168 0.224745 5.20618 0.841404 4.92982L1.09698 4.81945L1.75326 4.55403L1.75776 4.5431L1.51238 4.00164C1.10749 3.0819 1.07396 2.80185 1.32942 2.48907L1.36437 2.44804L1.44714 2.3603L2.32451 1.48484C2.48525 1.32319 2.71518 1.23205 2.93897 1.23205C3.09904 1.23205 3.33407 1.2954 3.71023 1.43788L4.08867 1.58792L4.51768 1.76774L4.53527 1.76042L4.69657 1.32825C5.09213 0.288158 5.23333 0.114221 5.65059 0.0208067C5.70322 0.0090232 5.74077 0.00399899 5.78342 0.00195879ZM6.83996 1.30078H6.11525L6.01307 1.54035C5.97426 1.63559 5.93049 1.74684 5.88106 1.87596L5.65456 2.4819C5.60024 2.62536 5.49729 2.74418 5.36494 2.8185L5.29641 2.85186L4.76398 3.07343C4.62956 3.12937 4.48109 3.13825 4.34226 3.10015L4.26031 3.07166L3.63042 2.80612L3.29018 2.67043L3.06149 2.58602L2.54785 3.09854L2.6083 3.25124C2.63193 3.30876 2.65911 3.37306 2.69011 3.4447L2.79481 3.68215L3.05738 4.25622C3.12028 4.39293 3.13342 4.5463 3.0963 4.69027L3.06798 4.77531L2.85027 5.30441C2.79263 5.4445 2.68824 5.55929 2.55608 5.63007L2.48777 5.66172L1.78084 5.94591L1.42746 6.0974L1.3 6.15643V6.8911L1.45251 6.95723C1.51025 6.98138 1.57509 7.00771 1.64761 7.03644L1.88876 7.13003L2.47476 7.34767C2.6225 7.40093 2.74509 7.50552 2.82112 7.64098L2.85516 7.71118L3.0729 8.23873C3.12881 8.3742 3.137 8.52373 3.09768 8.66318L3.06839 8.74545L2.81569 9.33852L2.6572 9.72974L2.57999 9.93748L3.09367 10.4505L3.24661 10.3901C3.30295 10.3671 3.3647 10.3414 3.432 10.3127L3.9038 10.1046L4.24405 9.94794C4.38643 9.87991 4.54781 9.86636 4.69818 9.90813L4.7723 9.93362L5.30786 10.1547C5.44981 10.2134 5.56564 10.32 5.63598 10.4547L5.66727 10.5243L5.80055 10.8606L5.99022 11.3219L6.09998 11.574L6.1595 11.7018H6.88635L6.99015 11.457L7.12534 11.1118L7.34549 10.5215C7.39977 10.3768 7.50349 10.2569 7.63699 10.1823L7.70613 10.1489L8.23941 9.92881C8.37227 9.87397 8.51875 9.86502 8.65603 9.90192L8.73712 9.92956L9.23929 10.1426L9.60579 10.2919L9.80636 10.3692L9.93872 10.4171L10.453 9.90374L10.3539 9.65915L10.2052 9.32012L9.94213 8.74652C9.879 8.60957 9.86582 8.45586 9.90312 8.31163L9.93156 8.22643L10.1489 7.69962C10.2062 7.56062 10.3096 7.44655 10.4406 7.37574L10.5082 7.34403L11.107 7.10333L11.4126 6.97519L11.4966 6.93865L11.7 6.84559V6.11164L11.4961 6.0246L11.22 5.91531L10.5229 5.6558C10.3755 5.60216 10.2533 5.49739 10.1777 5.36192L10.1438 5.29173L9.92647 4.76205C9.87102 4.62691 9.863 4.47788 9.90218 4.33888L9.93135 4.25687L10.1332 3.78499C10.1857 3.6602 10.2314 3.54955 10.2709 3.45174L10.3417 3.27289L10.4189 3.06389L9.90494 2.55203L9.75189 2.6126C9.66726 2.64711 9.57028 2.68808 9.46025 2.73592L9.34585 2.78606L8.74599 3.05816C8.60952 3.12069 8.45654 3.1337 8.31292 3.09666L8.22808 3.06843L7.69287 2.84841C7.55277 2.79081 7.43795 2.68645 7.36712 2.55429L7.33545 2.48598L7.14622 2.01248L7.00908 1.68076L6.93313 1.50434L6.83996 1.30078ZM6.5003 3.90103C7.9343 3.90103 9.09999 5.0666 9.09999 6.50071C9.09999 7.93491 7.93421 9.10152 6.5003 9.10152C5.06598 9.10152 3.89999 7.93511 3.89999 6.50071C3.89999 5.06639 5.06589 3.90103 6.5003 3.90103ZM6.5003 5.20115C5.78371 5.20115 5.2 5.78459 5.2 6.50071C5.2 7.21715 5.78403 7.8014 6.5003 7.8014C7.21606 7.8014 7.8 7.21705 7.8 6.50071C7.8 5.7847 7.21639 5.20115 6.5003 5.20115Z"/>
+            </svg>
+            <span class="text-xs font-bold ml-1">Settings</span>
+          </div>
+        </div>
 
-	<div class="content -mt-1 overflow-y-scroll w-full m-auto
-				 bg-bluedark px-4 py-2 flex-1 flex flex-col justify-center
-				 justify-between rounded-b-3xl sm:overflow-y-hidden w-11/12" 
-		 >
+        <div class="w-1/3 px-2 mb-2 ">
+          <div
+            class="fill-current hover:text-black hover:bg-white duration-300
+            shadow-xl py-2 flex  items-center justify-center cursor-pointer rounded-lg"
+            @click="tab = 'chat'" :class="[tab === 'chat' ? 'text-black bg-white': 'text-white bg-black']"
+          >
+            <svg width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M9.51871 11.4391L12.8095 13.9289C13.2654 14.2738 13.9407 13.9668 13.9407 13.4147V2.87808C13.9407 1.78698 13.0055 0.902466 11.8518 0.902466H2.1037C0.950036 0.902466 0.0148087 1.78698 0.0148087 2.87808V9.46344C0.0148087 10.5545 0.950036 11.4391 2.1037 11.4391H9.51871ZM12.5481 12.0445L10.1979 10.2663C10.0745 10.1729 9.92107 10.122 9.76296 10.122H2.1037C1.71915 10.122 1.40741 9.82715 1.40741 9.46345V2.87808C1.40741 2.51438 1.71915 2.21954 2.1037 2.21954H11.8519C12.2364 2.21954 12.5481 2.51438 12.5481 2.87808V12.0445Z"/>
+            </svg>
+            <span class="text-xs font-bold ml-1">Chat</span>
+          </div>
+        </div>
 
-		 <div class="text-2xl font-bold">
-		 	Information
-		 </div>
+        <div class="w-1/3 px-2 mb-2 ">
+          <div class="fill-current hover:text-black hover:bg-white duration-300
+           shadow-xl py-2 flex  items-center justify-center cursor-pointer rounded-lg"
+               @click="tab = 'ads'" :class="[tab === 'ads' ? 'text-black bg-white': 'text-white bg-black']"
+          >
+            <svg width="13" height="13" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6.5 0C10.0899 0 13 2.91015 13 6.5C13 10.0899 10.0899 13 6.5 13C2.91015 13 0 10.0899 0 6.5C0 2.91015 2.91015 0 6.5 0ZM10.6085 3.31206L3.31204 10.6085C4.19247 11.2926 5.29865 11.7 6.49998 11.7C9.37186 11.7 11.7 9.37188 11.7 6.5C11.7 5.29867 11.2926 4.19249 10.6085 3.31206ZM6.49999 1.30002C3.62811 1.30002 1.29999 3.62814 1.29999 6.50002C1.29999 7.70135 1.70737 8.80754 2.39151 9.68796L9.68793 2.39155C8.8075 1.7074 7.70132 1.30002 6.49999 1.30002Z"/>
+            </svg>
+            <span class="text-xs font-bold ml-1">Remove Ads</span>
+          </div>
+        </div>
 
-		 <div class="information px-2 flex-1 flex flex-col">
-		 	<div class="text-1xl font-bold flex flex-col leading-4 py-1">
-		 		<span>You, Me & OMD -</span>
-		 		<span>Live at O2 Arena</span>
-		 	</div>
+        <div class="w-1/3 px-2 mb-2 ">
+          <div
+            class="fill-current hover:text-black hover:bg-white duration-300
+            shadow-xl py-2 flex  items-center justify-center cursor-pointer rounded-lg"
+            @click="tab = 'playlist'" :class="[tab === 'playlist' ? 'text-black bg-white': 'text-white bg-black']"
+          >
+            <svg width="13" height="13" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6.5 0C10.0899 0 13 2.91015 13 6.5C13 10.0899 10.0899 13 6.5 13C2.91015 13 0 10.0899 0 6.5C0 2.91015 2.91015 0 6.5 0ZM6.49999 1.3C3.62811 1.3 1.29999 3.62812 1.29999 6.5C1.29999 9.37188 3.62811 11.7 6.49999 11.7C9.37187 11.7 11.7 9.37188 11.7 6.5C11.7 3.62812 9.37187 1.3 6.49999 1.3ZM5.5275 3.33855L9.4275 5.93855C9.83219 6.17462 9.85599 6.73883 9.49892 7.01351L5.5275 9.66146C5.09418 9.91424 4.54999 9.60167 4.54999 9.10001V3.90001C4.54999 3.39834 5.09418 3.08578 5.5275 3.33855Z"/>
+            </svg>
+            <span class="text-xs font-bold ml-1">Playlist</span>
+          </div>
+        </div>
 
-		 	<div class="py-1">
-		 		<div class="text-xs font-bold">
-		 			ABOUT THE SHOW
-		 		</div>
+      </div>
+    </div>
 
-		 		<div class="text-xs">
-		 			 Vestibulum cras risus ipsum commodo interdum aenean tellus. Quis purus vel velit, elementum rhoncus pulvinar leo cursus. Sed ipsum pharetra lobortis lectus. Magna morbi iaculis amet, consectetur sollicitudin in varius. Tincidunt malesuada sed tortor aliquam ultrices.
-		 		</div>
-		 	</div>
+    <div
+      class="w-11/12 sm:w-full mx-auto py-2 flex-1  rounded-b-3xl ">
+      <transition-group name="fade">
+        <info key="info" v-if="tab === 'info'"></info>
+        <chat key="chat" v-if="tab === 'chat'"></chat>
+        <div key="merch" v-if="tab === 'merch'">Merch</div>
+        <div key="ads" v-if="tab === 'ads'">ads</div>
+        <div key="setting" v-if="tab === 'setting'">setting</div>
+        <div key="playlist" v-if="tab === 'playlist'">playlist</div>
+      </transition-group>
 
-		 	<div class="py-1 flex-1 flex-1">
-		 		<div class="leading-4">
-		 			<span class="text-xs font-bold">BROATCAST DATE: </span>
-		 			<span class="text-xs font-meduim">09/01/21 </span>
-		 		</div>
-		 		<div class="leading-4">
-		 			<span class="text-xs font-bold">BROATCAST DATE: </span>
-		 			<span class="text-xs font-meduim">09/01/21 </span>
-		 		</div>
-		 		<div class="leading-4">
-		 			<span class="text-xs font-bold">BROATCAST DATE: </span>
-		 			<span class="text-xs font-meduim">09/01/21 </span>
-		 		</div>
-		 		<div class="leading-4">
-		 			<span class="text-xs font-bold">BROATCAST DATE: </span>
-		 			<span class="text-xs font-meduim">09/01/21 </span>
-		 		</div>
 
-		 	</div>
+    </div>
 
-		 	<p class="py-2">
-		 		<div class="text-xs font-bold">
-		 			ABOUT THE SHOW
-		 		</div>
-
-		 		<div class="text-xs">
-		 			 Vestibulum cras risus ipsum commodo interdum aenean tellus. Quis purus vel velit, elementum rhoncus pulvinar leo cursus. Sed ipsum pharetra lobortis lectus. Magna morbi iaculis amet, consectetur sollicitudin in varius. Tincidunt malesuada sed tortor aliquam ultrices.
-		 		</div>
-		 	</p>
-
-		 	<hr class="border-t-2 border-white my-3">
-
-		 	<div class="social-medias">
-		 		<div class="text-sm font-bold">
-		 			BAND SOCIALS
-		 		</div>
-
-		 		<div class="socials flex items-center justify-start py-2">
-		 			<a href="#">
-		 				<img src="~/assets/img/sidebar/Twitter.svg">
-		 			</a>
-		 			<a href="#" class="mx-4">
-		 				<img src="~/assets/img/sidebar/Instagram.svg">
-		 			</a>
-		 			<a href="#">
-		 				<img src="~/assets/img/sidebar/Facebook.svg">
-		 			</a>
-		 		</div>
-		 	</div>
-		 </div>
-	</div>
-
-	<div class="support-box rounded-2xl bg-bluedark -mt-2 py-4 px-4">
-		<hr class="border-t-2 border-white my-3">
-		<div class="support py-2 px-4 rounded-3xl">
-
-			<div class="text-sm font-bold">
-				Support
-			</div>
-			<div class="text-xs font-meduim">
-				support@slipstreamtv.co.uk
-			</div>
-		</div>
-	</div>
-
-</div>
+  </div>
 </template>
 
 <script>
-	export default{
-		data(){
-			return{
-				toggle: false,
-			}
-		},
-	}
+import chat from "@/components/sidebar/Chat";
+import info from "@/components/sidebar/Info";
+
+export default {
+
+  components: {
+    chat, info
+  },
+  data() {
+    return {
+      toggle: true,
+      tab: "info"
+    }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
 
-	@import "~/assets/css/_responsible";
+@import "~/assets/css/_responsible";
 
-	#sidebar{
-		transition: 0.5s all;
-		max-width: 999px;
+#sidebar {
+  transition: 0.5s all;
+  max-width: 999px;
 
-		.content{
-			transition: 0.5s all;
-			background: rgba(0, 1, 102, 0.5);
-			box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-			backdrop-filter: blur(20px);
-		}
-
-		.header{
-			height: 70px;
-		}
-
-		.support{
-			background-color: #20326c;
-		}
-
-		&.close{
-			max-width: 0;
-
-			.content{
-				padding-right: 0;
-				padding-left: 0;
-				opacity: 0;
-			}
-		}
+  .content {
+    transition: 0.5s all;
+    background: rgba(0, 1, 102, 0.5);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(20px);
+  }
 
 
-	}
+  .support {
+    background-color: #20326c;
+  }
 
-	@include respond("mobiles"){
+  &.close {
+    max-width: 0;
 
-	}
+    .content {
+      padding-right: 0;
+      padding-left: 0;
+      opacity: 0;
+    }
+  }
+
+
+}
+
+@include respond("mobiles") {
+
+}
 
 </style>

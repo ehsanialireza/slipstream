@@ -29,7 +29,7 @@
 <script>
 
 import purchase from '~/components/Purchase.vue'
-import sidebar from '~/components/chat.vue'
+import sidebar from '@/components/Sidebar.vue'
 
 export default {
 
@@ -37,7 +37,6 @@ export default {
     purchase,
     sidebar
   },
-
   data() {
     return {
       liveTimestamp: 0,
@@ -45,7 +44,6 @@ export default {
       timer: 0,
     }
   },
-
   mounted() {
     this.liveTimestamp = Date.now() + 8640000;
     this.diffTime = (this.liveTimestamp - Date.now()) / 1000;

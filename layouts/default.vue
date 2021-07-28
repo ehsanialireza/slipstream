@@ -41,6 +41,16 @@ html, body, #__nuxt, #__layout, .default-layout {
   background: #555;
 }
 
+/* animations */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+{
+  opacity: 0;
+}
+
 .db1 {
   background: rgba(255, 0, 0, .2);
   border: red;
