@@ -143,7 +143,7 @@ export default {
   data() {
     return {
       mobile: false,
-      toggle: false,
+      toggle: true,
       tab: "chat"
     }
   },

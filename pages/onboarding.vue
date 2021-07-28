@@ -1,8 +1,9 @@
 <template>
   <div class="onboard w-full h-full flex flex-col justify-center items-center bg-center bg-cover bg-no-repeat ">
 
-    <purchase></purchase>
     <sidebar></sidebar>
+    <purchase></purchase>
+
 
     <div class="bg-black bg-opacity-80 pt-6 pb-10 px-10 rounded-lg">
       <h4 class="text-center mb-4">Livestream starts in</h4>
